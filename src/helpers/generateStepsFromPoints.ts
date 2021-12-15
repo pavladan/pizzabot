@@ -1,9 +1,10 @@
 import {Point} from "../types"
 
 const generateStepsFromPoints = (currentPoint: Point, nextPoint: Point) => {
+    if ([currentPoint, nextPoint].flat().some(p => p < 0 || p === Infinity)) throw new Error('Invalid number at input points')
+
     let xMoves = ''
     let yMoves = ''
-    const drop = 'D'
     const xPoints = nextPoint[0] - currentPoint[0]
     const xSign = Math.sign(xPoints)
     if (xSign === 1) {
@@ -18,7 +19,7 @@ const generateStepsFromPoints = (currentPoint: Point, nextPoint: Point) => {
     } else if (ySign === -1) {
         yMoves += [...new Array(-1 * yPoints)].map(p => 'S').join('')
     }
-    return xMoves + yMoves + drop
+    return xMoves + yMoves
 }
 
 export default generateStepsFromPoints
